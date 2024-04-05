@@ -1,0 +1,50 @@
+{
+    "states": [
+        [
+            "q0",
+            "q1"
+        ]
+    ],
+    "alphabet": [
+        "a",
+        "b"
+    ],
+    "transitions": [
+        {
+            "from": [
+                "q0",
+                "q1"
+            ],
+            "to": [
+                "q0",
+                "q1"
+            ],
+            "symbol": "a"
+        },
+        {
+            "from": [
+                "q0",
+                "q1"
+            ],
+            "to": [
+                "q0",
+                "q1"
+            ],
+            "symbol": "b"
+        }
+    ],
+    "initial_state": [
+        "q0",
+        "q1"
+    ],
+    "accepting_states": [
+        [
+            "q0",
+            "q1"
+        ],
+        [
+            "q0",
+            "q1"
+        ]
+    ]
+}
