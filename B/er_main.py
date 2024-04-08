@@ -27,15 +27,36 @@ def generate_afnd_alt(args):
     afnd1 = generate_afnd(args[0])
     afnd2 = generate_afnd(args[1])
 
+    if afnd1 is None:
+        afnd1 = {
+            "states": ["q0", "q1"],
+            "alphabet": [],
+            "transitions": [],
+            "initial_state": "q0",
+            "accepting_states": ["q1"]
+        }
+    if afnd2 is None:
+        afnd2 = {
+            "states": ["q0", "q1"],
+            "alphabet": [],
+            "transitions": [],
+            "initial_state": "q0",
+            "accepting_states": ["q1"]
+        }
+
+    alphabet = list(set(afnd1["alphabet"] + afnd2["alphabet"]))
+
+    transitions = [
+        {"from": "q0", "to": afnd1["initial_state"], "symbol": ""},
+        {"from": "q0", "to": afnd2["initial_state"], "symbol": ""}
+    ] + [{"from": state, "to": "q1", "symbol": ""} for state in afnd1["accepting_states"]] + \
+        [{"from": state, "to": "q1", "symbol": ""} for state in afnd2["accepting_states"]] + \
+        afnd1["transitions"] + afnd2["transitions"]
+
     return {
         "states": ["q0", "q1"] + afnd1["states"] + afnd2["states"],
-        "alphabet": list(set(afnd1["alphabet"] + afnd2["alphabet"])),
-        "transitions": [
-            {"from": "q0", "to": afnd1["initial_state"], "symbol": ""},
-            {"from": "q0", "to": afnd2["initial_state"], "symbol": ""},
-        ] + [{"from": state, "to": "q1", "symbol": ""} for state in afnd1["accepting_states"]] +
-          [{"from": state, "to": "q1", "symbol": ""} for state in afnd2["accepting_states"]] +
-          afnd1["transitions"] + afnd2["transitions"],
+        "alphabet": alphabet,
+        "transitions": transitions,
         "initial_state": "q0",
         "accepting_states": ["q1"]
     }
